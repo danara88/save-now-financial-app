@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -47,18 +46,24 @@ public class Box {
 	private final String createdAt;
 
 	/**
+	 * Entity update date and time
+	 */
+	@Setter
+	private String updatedAt;
+
+	/**
 	 * Factory method for box creation.
 	 * @param name represents name of the box.
 	 * @param description represents descriotion of the box.
 	 * @param initialAmount representints the initial amount money on the box.
-	 * @return a Box domain entity
+	 * @return a Box domain entity.
 	 */
 	public static Box createBox(String name, String description, double initialAmount) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String creationDate = LocalDateTime.now().format(formatter);
 
 		return new Box(UUID.randomUUID()
-			.toString(), name, description, initialAmount, creationDate);
+			.toString(), name, description, initialAmount, creationDate, null);
 	}
 
 	@Override

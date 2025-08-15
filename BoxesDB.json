@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "beef315f-7f3f-4cea-9386-53a3cdeca716",
+    "name": "Hello",
+    "description": "Helloo",
+    "totalAmount": 0.0,
+    "createdAt": "2025-08-15 12:13:53",
+    "updatedAt": "2025-08-15 12:14:32"
+  }
+]

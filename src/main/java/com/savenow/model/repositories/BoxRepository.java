@@ -1,5 +1,7 @@
 package com.savenow.model.repositories;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.savenow.model.Box;
@@ -70,6 +72,10 @@ public class BoxRepository implements IBoxRepository {
 
 		boxToUpdate.setName(name);
 		boxToUpdate.setDescription(description);
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String updatedAt = LocalDateTime.now().format(formatter);
+		boxToUpdate.setUpdatedAt(updatedAt);
 
 		boxes.set(index, boxToUpdate);
 		BoxPersistence.saveBoxes(boxes);
