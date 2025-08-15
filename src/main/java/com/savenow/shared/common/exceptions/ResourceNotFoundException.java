@@ -1,8 +1,11 @@
 package com.savenow.shared.common.exceptions;
 
-public class NotFoundException extends RuntimeException {
+/**
+ * Throw when a requested resource cannot be found.
+ */
+public class ResourceNotFoundException extends RuntimeException {
 
-	public NotFoundException(String message) {
+	public ResourceNotFoundException(String message) {
 		super(message);
 	}
 }

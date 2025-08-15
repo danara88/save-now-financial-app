@@ -10,13 +10,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import com.savenow.model.common.BaseEntity;
+
 /**
  * Represents the Box domain entity
  */
 @AllArgsConstructor
 @ToString
 @Getter
-public class Box {
+public class Box extends BaseEntity {
 
 	/**
 	 * Unique identifier

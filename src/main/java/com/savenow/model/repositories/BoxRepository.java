@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.savenow.shared.common.exceptions.ResourceAlreadyExistsException;
+import com.savenow.shared.common.exceptions.ResourceNotFoundException;
 import com.savenow.model.Box;
-import com.savenow.model.exceptions.box.BoxNotFoundException;
-import com.savenow.model.exceptions.box.AlreadyExistingBoxException;
 import com.savenow.persistence.BoxPersistence;
 import com.savenow.shared.interfaces.box.IBoxRepository;
 
@@ -21,14 +21,14 @@ public class BoxRepository implements IBoxRepository {
 	}
 
 	/**
-	 * Method in charge of save a box in the database.
+	 * Method in charge of saving a box in the database.
 	 * @param box represents the new box created.
-	 * @throws AlreadyExistingBoxException represents a checked exception when trying to add duplicate boxes.
+	 * @throws ResourceAlreadyExistsException represents a checked exception when trying to add duplicate boxes.
 	 */
 	@Override
-	public void create(Box box) throws AlreadyExistingBoxException {
+	public void create(Box box) throws ResourceAlreadyExistsException {
 		if(boxes.contains(box)) {
-			throw new AlreadyExistingBoxException();
+			throw new ResourceAlreadyExistsException("ERROR: Box with name " + box.getName() + "already exists.");
 		}
 		boxes.add(box);
 		BoxPersistence.saveBoxes(boxes);
@@ -40,20 +40,20 @@ public class BoxRepository implements IBoxRepository {
 	 */
 	@Override
 	public List<Box> getAll() {
-		return BoxPersistence.loadBoxes();
+		return boxes;
 	}
 
 	/**
 	 * Method in charge of getting a box by id.
 	 * @param id represents the box id.
 	 * @return an existing box from database.
-	 * @throws BoxNotFoundException represents a checked exception when a Box was not found.
+	 * @throws ResourceNotFoundException represents a checked exception when a box was not found.
 	 */
 	@Override
-	public Box getById(String id) throws BoxNotFoundException {
+	public Box getById(String id) throws ResourceNotFoundException {
 		Box boxDB = boxes.stream().filter(box -> box.getId().equals(id)).findFirst().orElse(null);
 		if(boxDB == null) {
-			throw new BoxNotFoundException();
+			throw new ResourceNotFoundException("ERROR: Box with id " + id + " not found.");
 		}
 		return boxDB;
 	}
@@ -63,10 +63,10 @@ public class BoxRepository implements IBoxRepository {
 	 * @param id represents the box id to update.
 	 * @param name reprersents the new box name.
 	 * @param description represents the new box description.
-	 * @throws BoxNotFoundException represents a checked exception when a Box was not found.
+	 * @throws ResourceNotFoundException represents a checked exception when a Box was not found.
 	 */
 	@Override
-	public void updateById(String id, String name, String description) throws BoxNotFoundException {
+	public void updateById(String id, String name, String description) throws ResourceNotFoundException {
 		Box boxToUpdate = getById(id);
 		int index = getIndex(boxToUpdate);
 
@@ -84,10 +84,10 @@ public class BoxRepository implements IBoxRepository {
 	/**
 	 * Method in charge of deleting a box from the database.
 	 * @param id represents the box id to be deleted.
-	 * @throws BoxNotFoundException represents a checked exception when a Box was not found.
+	 * @throws ResourceNotFoundException represents a checked exception when a Box was not found.
 	 */
 	@Override
-	public void deleteById(String id) throws BoxNotFoundException {
+	public void deleteById(String id) throws ResourceNotFoundException {
 		Box boxToDelete = getById(id);
 		boxes.remove(boxToDelete);
 		BoxPersistence.saveBoxes(boxes);

@@ -1,11 +1,9 @@
 package com.savenow.shared.common.exceptions;
 
 /**
- * Represents a checked exception for user inputed data.
- * Throw this exception when trying to validate data comming from outside.
+ * Throw when an input value from user is invalid.
  */
 public class DataValidationException extends Exception {
-
 	public DataValidationException(String message) {
 		super(message);
 	}

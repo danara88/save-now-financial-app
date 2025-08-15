@@ -1,10 +1,10 @@
 package com.savenow.controller;
 
-import com.savenow.model.exceptions.box.BoxNotFoundException;
 import java.util.List;
 
+import com.savenow.shared.common.exceptions.ResourceAlreadyExistsException;
+import com.savenow.shared.common.exceptions.ResourceNotFoundException;
 import com.savenow.model.Box;
-import com.savenow.model.exceptions.box.AlreadyExistingBoxException;
 import com.savenow.shared.common.exceptions.DataValidationException;
 import com.savenow.shared.interfaces.box.IBoxController;
 import com.savenow.shared.interfaces.box.IBoxRepository;
@@ -20,7 +20,7 @@ public class BoxController implements IBoxController {
 	}
 
 	@Override
-	public void addBox(String name, String description, double initialAmount) throws DataValidationException, AlreadyExistingBoxException {
+	public void addBox(String name, String description, double initialAmount) throws DataValidationException, ResourceAlreadyExistsException {
 		validateData(name, description);
 		Box box = Box.createBox(name, description, initialAmount);
 		_boxRepository.create(box);
@@ -32,13 +32,13 @@ public class BoxController implements IBoxController {
 	}
 
 	@Override
-	public void updateBox(String id, String name, String description) throws DataValidationException, BoxNotFoundException {
+	public void updateBox(String id, String name, String description) throws DataValidationException, ResourceNotFoundException {
 		validateData(id, name, description);
 		_boxRepository.updateById(id, name, description);
 	}
 
 	@Override
-	public void deleteBox(String id) throws BoxNotFoundException, DataValidationException {
+	public void deleteBox(String id) throws ResourceNotFoundException, DataValidationException {
 		if(id.isEmpty()){
 			throw new DataValidationException("ERROR: Box id is required.");
 		}
@@ -46,7 +46,7 @@ public class BoxController implements IBoxController {
 	}
 
 	@Override
-	public Box getBoxById(String id) throws BoxNotFoundException {
+	public Box getBoxById(String id) throws ResourceNotFoundException {
 		return _boxRepository.getById(id);
 	}
 

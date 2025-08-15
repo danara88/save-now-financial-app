@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import com.savenow.model.common.BaseEntity;
+
 import com.savenow.model.enums.TransactionType;
 
 /**
@@ -18,7 +20,7 @@ import com.savenow.model.enums.TransactionType;
 @AllArgsConstructor
 @ToString
 @Getter
-public class Transaction {
+public class Transaction extends BaseEntity {
 	/**
 	 * Unique identifier
 	 */
@@ -32,12 +34,14 @@ public class Transaction {
 	/**
 	 * Represents the transaction reason details
 	 */
-	private final String reason;
+	@Setter
+	private String reason;
 
 	/**
 	 * Represents the transaction type
 	 */
-	private final TransactionType type;
+	@Setter
+	private TransactionType type;
 
 	/**
 	 * Entity creation date and time

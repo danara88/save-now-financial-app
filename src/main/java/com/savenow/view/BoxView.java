@@ -1,12 +1,12 @@
 package com.savenow.view;
 
-import com.savenow.model.exceptions.box.BoxNotFoundException;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
+import com.savenow.shared.common.exceptions.ResourceAlreadyExistsException;
+import com.savenow.shared.common.exceptions.ResourceNotFoundException;
 import com.savenow.model.Box;
-import com.savenow.model.exceptions.box.AlreadyExistingBoxException;
 import com.savenow.shared.common.exceptions.DataValidationException;
 import com.savenow.shared.common.interfaces.IView;
 import com.savenow.shared.interfaces.box.IBoxController;
@@ -36,7 +36,7 @@ public class BoxView implements IView {
 			_boxController.addBox(boxName, boxDescription, initialBoxAmount);
 			System.out.println(UiConstants.resourceCreatedSuccess);
 			System.out.println();
-		} catch (DataValidationException | AlreadyExistingBoxException e) {
+		} catch (DataValidationException | ResourceAlreadyExistsException e) {
 			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
 		} catch (Exception e) {
 			System.out.println(UiConstants.defaultErrorMessage);
@@ -64,7 +64,7 @@ public class BoxView implements IView {
 
 		try {
 			boxDB = _boxController.getBoxById(boxId);
-		} catch (BoxNotFoundException e) {
+		} catch (ResourceNotFoundException e) {
 			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
 			return;
 		}
@@ -76,7 +76,7 @@ public class BoxView implements IView {
 			_boxController.updateBox(boxId, !boxName.isEmpty() ? boxName : boxDB.getName(), !boxDescription.isEmpty() ? boxDescription : boxDB.getDescription());
 			System.out.println(UiConstants.resourceUpdatedSuccess);
 			System.out.println();
-		} catch (DataValidationException | BoxNotFoundException e) {
+		} catch (DataValidationException | ResourceNotFoundException e) {
 			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
 		} catch (Exception e) {
 			System.out.println(UiConstants.defaultErrorMessage);
@@ -97,7 +97,7 @@ public class BoxView implements IView {
 			_boxController.deleteBox(boxId);
 			System.out.println(UiConstants.resourceDeletedSuccess);
 			System.out.println();
-		} catch (BoxNotFoundException | DataValidationException e) {
+		} catch (ResourceNotFoundException | DataValidationException e) {
 			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
 		} catch (Exception e) {
 			System.out.println(UiConstants.defaultErrorMessage);
