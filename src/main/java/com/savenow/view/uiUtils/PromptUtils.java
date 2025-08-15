@@ -36,10 +36,10 @@ public class PromptUtils {
         do {
             System.out.println(label + UiConstants.defaultPromptLabel);
             inputValue = scanner.nextLine();
-            if(!_isDouble(inputValue)) {
+            if(!isDouble(inputValue)) {
                 System.out.println(UiConstants.RED_COLOR + "Input " + fieldName + " is not a valid input." + UiConstants.RESET_COLOR);
             }
-        } while(!_isDouble(inputValue));
+        } while(!isDouble(inputValue));
 
         return Double.parseDouble(inputValue);
     }
@@ -55,10 +55,10 @@ public class PromptUtils {
         do {
             System.out.println(label + UiConstants.defaultPromptLabel);
             inputValue = scanner.nextLine();
-            if(!_isInteger(inputValue)) {
+            if(!isInteger(inputValue)) {
                 System.out.println(UiConstants.RED_COLOR + "Input " + fieldName + " is not a valid input." + UiConstants.RESET_COLOR);
             }
-        } while(!_isInteger(inputValue));
+        } while(!isInteger(inputValue));
 
         return Integer.parseInt(inputValue);
     }
@@ -68,7 +68,7 @@ public class PromptUtils {
      * @param input represents the inserted value by the user
      * @return true if it can be converted to a double type
      */
-    private static boolean _isDouble(String input) {
+    private static boolean isDouble(String input) {
         if (input.isEmpty()) {
             return false;
         }
@@ -85,7 +85,7 @@ public class PromptUtils {
      * @param input represents the inserted value by the user
      * @return true if it can be converted to an integer type
      */
-    private static boolean _isInteger(String input) {
+    private static boolean isInteger(String input) {
         if (input.isEmpty()) {
             return false;
         }

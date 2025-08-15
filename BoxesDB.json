@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "c69224d4-7949-45e5-88b2-77d88a4efb6a",
+    "name": "Investments",
+    "description": "Only for investments",
+    "totalAmount": 100.0,
+    "createdAt": "2025-08-15 13:46:22",
+    "updatedAt": "2025-08-15 13:46:51"
+  }
+]

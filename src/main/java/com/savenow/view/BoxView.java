@@ -59,18 +59,20 @@ public class BoxView implements IView {
 		System.out.println();
 		printBoxesTableUi();
 		System.out.println();
-		String boxId = PromptUtils.inputString("Enter box id to update", "id", true);
-		Box boxDB = null;
 
-		try {
-			boxDB = _boxController.getBoxById(boxId);
-		} catch (ResourceNotFoundException e) {
-			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
-			return;
-		}
+		String boxId;
 
-		String boxName = PromptUtils.inputString("Enter new box name (" + boxDB.getName() + "). Please press enter if not changes.", "name", false);
-		String boxDescription = PromptUtils.inputString("Enter new box description (" + boxDB.getDescription() + "). Please press enter if not changes.", "description", false);
+		do {
+			boxId = PromptUtils.inputString("Enter box id to update", "id", true);
+			if (!boxExists(boxId)) {
+				System.out.println(
+					UiConstants.RED_COLOR + "Box with id " + boxId + " does not exist. Please enter an existing id" + UiConstants.RESET_COLOR);
+			}
+		} while (!boxExists(boxId));
+
+		Box boxDB = _boxController.getBoxById(boxId);
+		String boxName = PromptUtils.inputString("Enter new box name (" + boxDB.getName() + "). Please press enter if not changes", "name", false);
+		String boxDescription = PromptUtils.inputString("Enter new box description (" + boxDB.getDescription() + "). Please press enter if not changes", "description", false);
 
 		try {
 			_boxController.updateBox(boxId, !boxName.isEmpty() ? boxName : boxDB.getName(), !boxDescription.isEmpty() ? boxDescription : boxDB.getDescription());
@@ -80,6 +82,23 @@ public class BoxView implements IView {
 			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
 		} catch (Exception e) {
 			System.out.println(UiConstants.defaultErrorMessage);
+		}
+	}
+
+	/**
+	 * Method in charge of verifying if a box exists
+	 * @param boxId represents the box id.
+	 * @return retruns true if dthe resource exists.
+	 */
+	private boolean boxExists(String boxId) {
+		if (boxId.isEmpty()) {
+			return false;
+		}
+		try {
+			_boxController.getBoxById(boxId);
+			return true;
+		} catch (ResourceNotFoundException e) {
+			return false;
 		}
 	}
 
