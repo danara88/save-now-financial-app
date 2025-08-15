@@ -1,5 +1,6 @@
 package com.savenow.view.uiUtils;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -10,29 +11,90 @@ public class PromptUtils {
      * Captures user prompt (string)
      * @return String
      */
-    public static String inputString(String label) {
-        System.out.println(label + UiConstants.defaultPromptLabel);
+    public static String inputString(String label, String fieldName) {
+        String inputValue;
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+
+        do {
+            System.out.println(label + UiConstants.defaultPromptLabel);
+            inputValue = scanner.nextLine();
+            if (inputValue.isEmpty()) {
+                System.out.println(UiConstants.RED_COLOR + "Input " + fieldName + " must not be empty." + UiConstants.RESET_COLOR);
+            }
+        } while (inputValue.isEmpty());
+
+        return inputValue;
     }
 
     /**
      * Captures user prompt (double)
      * @return Double
      */
-    public static Double inputDouble(String label) {
-        System.out.println(label + UiConstants.defaultPromptLabel);
+    public static Double inputDouble(String label, String fieldName) {
+        String inputValue;
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextDouble();
+
+        do {
+            System.out.println(label + UiConstants.defaultPromptLabel);
+            inputValue = scanner.nextLine();
+            if(!_isDouble(inputValue)) {
+                System.out.println(UiConstants.RED_COLOR + "Input " + fieldName + " is not a valid input." + UiConstants.RESET_COLOR);
+            }
+        } while(!_isDouble(inputValue));
+
+        return Double.parseDouble(inputValue);
     }
 
     /**
      * Captures user prompt (int)
      * @return Integer
      */
-    public static Integer inputInteger(String label) {
-        System.out.println(label + UiConstants.defaultPromptLabel);
+    public static Integer inputInteger(String label, String fieldName) {
+        String inputValue;
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+
+        do {
+            System.out.println(label + UiConstants.defaultPromptLabel);
+            inputValue = scanner.nextLine();
+            if(!_isInteger(inputValue)) {
+                System.out.println(UiConstants.RED_COLOR + "Input " + fieldName + " is not a valid input." + UiConstants.RESET_COLOR);
+            }
+        } while(!_isInteger(inputValue));
+
+        return Integer.parseInt(inputValue);
+    }
+
+    /**
+     * Verifies if a provided value can be converted to a double type.
+     * @param input represents the inserted value by the user
+     * @return true if it can be converted to a double type
+     */
+    private static boolean _isDouble(String input) {
+        if (input.isEmpty()) {
+            return false;
+        }
+        try {
+            Double.parseDouble(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Verifies if a provided value can be converted to an integer type.
+     * @param input represents the inserted value by the user
+     * @return true if it can be converted to an integer type
+     */
+    private static boolean _isInteger(String input) {
+        if (input.isEmpty()) {
+            return false;
+        }
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

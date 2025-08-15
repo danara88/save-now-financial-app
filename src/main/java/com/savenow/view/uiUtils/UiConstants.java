@@ -27,31 +27,37 @@ public class UiConstants {
             Start managing your finances efficiently!
         """;
 
-
+    public static final String RED_COLOR = "\u001B[31m";
+    public static final String RESET_COLOR = "\u001B[0m";
+    public static final String GREEN_COLOR = "\u001B[32m";
 
     public static final String enterOptionCopy = "Enter option: ";
     public static final String unkownRoutePage = "Unknown route page";
     public static final String defaultPromptLabel = "  ->  ";
     public static final String getAllBoxesTitle = """
+            
             *******************************************************
                                    All boxes
             *******************************************************
             """;
     public static final String createBoxTitle = """
+            
             *******************************************************
                                    Create box
             *******************************************************
             """;
     public static final String getAllMovementsTitle = """
+            
             *******************************************************
                                    All movements
             *******************************************************
             """;
     public static final String createMovementTitle = """
+            
             *******************************************************
                                    Create movement
             *******************************************************
             """;
-    public static final String defaultErrorMessage = "Uups! Something went wrong!";
-    public static final String resourceCreatedSuccess = "Resource created successfully!";
+    public static final String defaultErrorMessage = RED_COLOR + "Uups! Something went wrong. Please try later." + RESET_COLOR;
+    public static final String resourceCreatedSuccess = GREEN_COLOR + "Resource created successfully!" + RESET_COLOR;
 }

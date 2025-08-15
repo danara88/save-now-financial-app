@@ -1,5 +1,8 @@
 package com.savenow;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.savenow.model.repositories.BoxRepository;
 import com.savenow.shared.common.enums.ProgramExecution;
 import com.savenow.shared.common.interfaces.IView;
@@ -13,32 +16,30 @@ import com.savenow.view.uiUtils.MenuUtils;
 import com.savenow.view.uiUtils.PromptUtils;
 import com.savenow.view.uiUtils.UiConstants;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Map<String, IView> viewsConfig = _configureViews();
-        Map<Integer, Routes> routesConfig = _configureRoutes();
+        Map<String, IView> viewsConfig = configureViews();
+        Map<Integer, Routes> routesConfig = configureRoutes();
         MenuUtils.printBannerAndMenu();
 
         while (true) {
-            int selectedOption = PromptUtils.inputInteger(UiConstants.enterOptionCopy);
+            int selectedOption = PromptUtils.inputInteger(UiConstants.enterOptionCopy, "selection");
             Routes selectedRoute = routesConfig.get(selectedOption);
-            ProgramExecution programFlowExecution = _executeView(selectedRoute, viewsConfig);
+            ProgramExecution programFlowExecution = executeView(selectedRoute, viewsConfig);
 
             if (programFlowExecution == ProgramExecution.EXIT) {
                 return;
             }
 
             if(selectedRoute != Routes.HOME_ROUTE) {
+                System.out.println();
                 System.out.println(UiConstants.menu);
             }
         }
     }
 
-
-    private static Map<String, IView> _configureViews() {
+    private static Map<String, IView> configureViews() {
         Map<String, IView> viewMapper = new HashMap<>();
 
         // Home IoC confication
@@ -59,7 +60,7 @@ public class Main {
      * In charge of configuring the system routes
      * @return a map of integer value as key with route enum string as value
      */
-    private static Map<Integer, Routes> _configureRoutes() {
+    private static Map<Integer, Routes> configureRoutes() {
         Map<Integer, Routes> routesMapper = new HashMap<>();
         routesMapper.put(0, Routes.HOME_ROUTE);
         routesMapper.put(1, Routes.ALL_BOXES_LIST_ROUTE);
@@ -75,7 +76,7 @@ public class Main {
      * @param route: represents the system route
      * @return ProgramExecution enumeration
      */
-    private static ProgramExecution _executeView(Routes route, Map<String, IView> views) {
+    private static ProgramExecution executeView(Routes route, Map<String, IView> views) {
         final HomeView homeView = (HomeView) views.get("HomeView");
         final BoxView boxView = (BoxView) views.get("BoxView");
 
@@ -85,11 +86,11 @@ public class Main {
                 yield ProgramExecution.CONTINUE;
             }
             case ALL_BOXES_LIST_ROUTE -> {
-                boxView.listBoxView();
+                boxView.listBoxesView();
                 yield ProgramExecution.CONTINUE;
             }
             case CREATE_BOX_ROUTE -> {
-                System.out.println("Create box route");
+                boxView.addBoxView();
                 yield ProgramExecution.CONTINUE;
             }
             case ALL_TRANSACTIONS_ROUTE -> {
