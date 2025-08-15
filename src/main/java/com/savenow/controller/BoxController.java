@@ -1,5 +1,6 @@
 package com.savenow.controller;
 
+import com.savenow.model.exceptions.box.BoxNotFoundException;
 import java.util.List;
 
 import com.savenow.model.Box;
@@ -30,6 +31,25 @@ public class BoxController implements IBoxController {
 		return _boxRepository.getAll();
 	}
 
+	@Override
+	public void updateBox(String id, String name, String description) throws DataValidationException, BoxNotFoundException {
+		validateData(id, name, description);
+		_boxRepository.update(id, name, description);
+	}
+
+	@Override
+	public void deleteBox(String id) throws BoxNotFoundException, DataValidationException {
+		if(id.isEmpty()){
+			throw new DataValidationException("ERROR: Box id is required.");
+		}
+		_boxRepository.delete(id);
+	}
+
+	@Override
+	public Box getBoxById(String id) throws BoxNotFoundException {
+		return _boxRepository.getById(id);
+	}
+
 	/**
 	 * Validated inputed data to create a box
 	 * @param name name of the box
@@ -37,6 +57,27 @@ public class BoxController implements IBoxController {
 	 * @throws DataValidationException checked exception
 	 */
 	private void validateData(String name, String description) throws DataValidationException {
+		if(name.isEmpty()) {
+			throw new DataValidationException("ERROR: Box name is required.");
+		}
+
+		if(description.isEmpty()) {
+			throw new DataValidationException("ERROR: Box description is required.");
+		}
+	}
+
+	/**
+	 * Validated inputed data to create a box
+	 * @param id id of the box
+	 * @param name name of the box
+	 * @param description description of the box
+	 * @throws DataValidationException checked exception
+	 */
+	private void validateData(String id, String name, String description) throws DataValidationException {
+		if(id.isEmpty()) {
+			throw new DataValidationException("ERROR: Box id is required.");
+		}
+
 		if(name.isEmpty()) {
 			throw new DataValidationException("ERROR: Box name is required.");
 		}

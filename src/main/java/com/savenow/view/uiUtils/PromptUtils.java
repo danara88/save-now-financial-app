@@ -1,6 +1,5 @@
 package com.savenow.view.uiUtils;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -11,17 +10,17 @@ public class PromptUtils {
      * Captures user prompt (string)
      * @return String
      */
-    public static String inputString(String label, String fieldName) {
+    public static String inputString(String label, String fieldName, boolean isRequired) {
         String inputValue;
         Scanner scanner = new Scanner(System.in);
 
         do {
             System.out.println(label + UiConstants.defaultPromptLabel);
             inputValue = scanner.nextLine();
-            if (inputValue.isEmpty()) {
+            if (inputValue.isEmpty() && isRequired) {
                 System.out.println(UiConstants.RED_COLOR + "Input " + fieldName + " must not be empty." + UiConstants.RESET_COLOR);
             }
-        } while (inputValue.isEmpty());
+        } while (inputValue.isEmpty() && isRequired);
 
         return inputValue;
     }

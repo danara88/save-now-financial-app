@@ -5,14 +5,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.UUID;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
  * Represents the Box domain entity
  */
-@RequiredArgsConstructor
+@AllArgsConstructor
 @ToString
 @Getter
 public class Box {
@@ -25,12 +27,14 @@ public class Box {
 	/**
 	 * Name of the box
 	 */
-	private final String name;
+	@Setter
+	private String name;
 
 	/**
 	 * Description of the box
 	 */
-	private final String description;
+	@Setter
+	private String description;
 
 	/**
 	 * Indicates how much money is in the box

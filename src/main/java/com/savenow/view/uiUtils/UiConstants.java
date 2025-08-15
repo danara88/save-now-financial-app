@@ -21,9 +21,11 @@ public class UiConstants {
             [0] Home               - Go to home screen.
             [1] See all boxes      - Visualize all your boxes.
             [2] Create box         - Create new box.
-            [3] See all movements  - Consult your recent movements.
-            [4] Create movement    - Register new movement
-            [5] Exit               - Exit the program.
+            [3] Update box         - Update box details.
+            [4] Delete box         - Remove box.
+            [5] See all movements  - Consult your recent movements.
+            [6] Create movement    - Register new movement
+            [7] Exit               - Exit the program.
             Start managing your finances efficiently!
         """;
 
@@ -46,6 +48,18 @@ public class UiConstants {
                                    Create box
             *******************************************************
             """;
+    public static final String updateBoxTitle = """
+            
+            *******************************************************
+                                   Update box
+            *******************************************************
+            """;
+    public static final String deleteBoxTitle = """
+            
+            *******************************************************
+                                   Delete box
+            *******************************************************
+            """;
     public static final String getAllMovementsTitle = """
             
             *******************************************************
@@ -60,4 +74,6 @@ public class UiConstants {
             """;
     public static final String defaultErrorMessage = RED_COLOR + "Uups! Something went wrong. Please try later." + RESET_COLOR;
     public static final String resourceCreatedSuccess = GREEN_COLOR + "Resource created successfully!" + RESET_COLOR;
+    public static final String resourceUpdatedSuccess = GREEN_COLOR + "Resource updated successfully!" + RESET_COLOR;
+    public static final String resourceDeletedSuccess = GREEN_COLOR + "Resource deleted successfully!" + RESET_COLOR;
 }

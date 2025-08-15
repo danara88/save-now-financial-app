@@ -1,5 +1,6 @@
 package com.savenow;
 
+import com.savenow.view.uiUtils.UiHelpers;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,9 +66,11 @@ public class Main {
         routesMapper.put(0, Routes.HOME_ROUTE);
         routesMapper.put(1, Routes.ALL_BOXES_LIST_ROUTE);
         routesMapper.put(2, Routes.CREATE_BOX_ROUTE);
-        routesMapper.put(3, Routes.ALL_TRANSACTIONS_ROUTE);
-        routesMapper.put(4, Routes.CREATE_TRANSACTION_ROUTE);
-        routesMapper.put(5, Routes.EXIT_ROUTE);
+        routesMapper.put(3, Routes.UPDATE_BOX_ROUTE);
+        routesMapper.put(4, Routes.DELETE_BOX_ROUTE);
+        routesMapper.put(5, Routes.ALL_TRANSACTIONS_ROUTE);
+        routesMapper.put(6, Routes.CREATE_TRANSACTION_ROUTE);
+        routesMapper.put(7, Routes.EXIT_ROUTE);
         return routesMapper;
     }
 
@@ -82,26 +85,42 @@ public class Main {
 
         return switch (route) {
             case HOME_ROUTE -> {
+                UiHelpers.clearScreen();
                 homeView.homeView();
                 yield ProgramExecution.CONTINUE;
             }
             case ALL_BOXES_LIST_ROUTE -> {
+                UiHelpers.clearScreen();
                 boxView.listBoxesView();
                 yield ProgramExecution.CONTINUE;
             }
             case CREATE_BOX_ROUTE -> {
+                UiHelpers.clearScreen();
                 boxView.addBoxView();
                 yield ProgramExecution.CONTINUE;
             }
+            case UPDATE_BOX_ROUTE -> {
+                UiHelpers.clearScreen();
+                boxView.updateBoxView();
+                yield ProgramExecution.CONTINUE;
+            }
+            case DELETE_BOX_ROUTE -> {
+                UiHelpers.clearScreen();
+                boxView.deleteBoxView();
+                yield ProgramExecution.CONTINUE;
+            }
             case ALL_TRANSACTIONS_ROUTE -> {
+                UiHelpers.clearScreen();
                 System.out.println("All transaction route");
                 yield ProgramExecution.CONTINUE;
             }
             case CREATE_TRANSACTION_ROUTE -> {
+                UiHelpers.clearScreen();
                 System.out.println("Create transaction route");
                 yield ProgramExecution.CONTINUE;
             }
             case EXIT_ROUTE -> {
+                UiHelpers.clearScreen();
                 System.out.println("Exit route");
                 yield ProgramExecution.EXIT;
             }

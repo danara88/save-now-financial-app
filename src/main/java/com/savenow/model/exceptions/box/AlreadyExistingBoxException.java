@@ -9,6 +9,6 @@ public class AlreadyExistingBoxException extends Exception {
 	}
 
 	public AlreadyExistingBoxException(String message) {
-		super(message.isEmpty() ? "ERROR: Box already exists." : message);
+		super(message);
 	}
 }

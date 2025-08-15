@@ -13,6 +13,12 @@ public enum Routes {
     // Represents the application CREATE BOX page route
     CREATE_BOX_ROUTE,
 
+    // Represents the application UPDATE BOX page route
+    UPDATE_BOX_ROUTE,
+
+    // Represents the application DELETE BOX page route
+    DELETE_BOX_ROUTE,
+
     // Represents the application ALL TRANSACTIONS page route
     ALL_TRANSACTIONS_ROUTE,
 
