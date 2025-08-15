@@ -34,7 +34,7 @@ public class BoxController implements IBoxController {
 	@Override
 	public void updateBox(String id, String name, String description) throws DataValidationException, BoxNotFoundException {
 		validateData(id, name, description);
-		_boxRepository.update(id, name, description);
+		_boxRepository.updateById(id, name, description);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class BoxController implements IBoxController {
 		if(id.isEmpty()){
 			throw new DataValidationException("ERROR: Box id is required.");
 		}
-		_boxRepository.delete(id);
+		_boxRepository.deleteById(id);
 	}
 
 	@Override

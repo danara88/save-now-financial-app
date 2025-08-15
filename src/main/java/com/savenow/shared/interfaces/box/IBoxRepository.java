@@ -17,7 +17,7 @@ public interface IBoxRepository extends IRepository {
 
 	Box getById(String id) throws BoxNotFoundException;
 
-	void update(String boxId, String name, String description) throws BoxNotFoundException;
+	void updateById(String id, String name, String description) throws BoxNotFoundException;
 
-	void delete(String boxId) throws BoxNotFoundException;
+	void deleteById(String id) throws BoxNotFoundException;
 }

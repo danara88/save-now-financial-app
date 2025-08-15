@@ -60,14 +60,14 @@ public class BoxRepository implements IBoxRepository {
 
 	/**
 	 * Method in charge of updating a box.
-	 * @param boxId represents the box id to update.
+	 * @param id represents the box id to update.
 	 * @param name reprersents the new box name.
 	 * @param description represents the new box description.
 	 * @throws BoxNotFoundException represents a checked exception when a Box was not found.
 	 */
 	@Override
-	public void update(String boxId, String name, String description) throws BoxNotFoundException {
-		Box boxToUpdate = getById(boxId);
+	public void updateById(String id, String name, String description) throws BoxNotFoundException {
+		Box boxToUpdate = getById(id);
 		int index = getIndex(boxToUpdate);
 
 		boxToUpdate.setName(name);
@@ -83,12 +83,12 @@ public class BoxRepository implements IBoxRepository {
 
 	/**
 	 * Method in charge of deleting a box from the database.
-	 * @param boxId represents the box id to be deleted.
+	 * @param id represents the box id to be deleted.
 	 * @throws BoxNotFoundException represents a checked exception when a Box was not found.
 	 */
 	@Override
-	public void delete(String boxId) throws BoxNotFoundException {
-		Box boxToDelete = getById(boxId);
+	public void deleteById(String id) throws BoxNotFoundException {
+		Box boxToDelete = getById(id);
 		boxes.remove(boxToDelete);
 		BoxPersistence.saveBoxes(boxes);
 	}
