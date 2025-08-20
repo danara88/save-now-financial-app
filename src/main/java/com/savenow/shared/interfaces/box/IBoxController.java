@@ -18,7 +18,7 @@ public interface IBoxController extends IController {
 
 	Box getBoxById(String id) throws ResourceNotFoundException;
 
-	void updateBox(String id, String name, String description) throws DataValidationException, ResourceNotFoundException;
+	void updateBox(String id, String name, String description, Double totalAmount) throws DataValidationException, ResourceNotFoundException;
 
 	void deleteBox(String id) throws ResourceNotFoundException, DataValidationException;
 }

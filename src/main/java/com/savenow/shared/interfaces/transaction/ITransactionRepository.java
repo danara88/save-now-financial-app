@@ -1,4 +1,4 @@
-package com.savenow.shared.interfaces.box;
+package com.savenow.shared.interfaces.transaction;
 
 import java.util.List;
 

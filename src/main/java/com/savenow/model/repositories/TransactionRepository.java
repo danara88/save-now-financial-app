@@ -9,7 +9,7 @@ import com.savenow.model.Transaction;
 import com.savenow.model.enums.TransactionType;
 import com.savenow.shared.common.exceptions.ResourceAlreadyExistsException;
 import com.savenow.shared.common.exceptions.ResourceNotFoundException;
-import com.savenow.shared.interfaces.box.ITransactionRepository;
+import com.savenow.shared.interfaces.transaction.ITransactionRepository;
 
 /**
  * Represents the implementation of the transaction repository

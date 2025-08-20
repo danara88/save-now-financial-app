@@ -1,7 +1,7 @@
 package com.savenow.model.repositories;
 
+import com.savenow.view.uiUtils.UiHelpers;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.savenow.shared.common.exceptions.ResourceAlreadyExistsException;
@@ -66,15 +66,15 @@ public class BoxRepository implements IBoxRepository {
 	 * @throws ResourceNotFoundException represents a checked exception when a Box was not found.
 	 */
 	@Override
-	public void updateById(String id, String name, String description) throws ResourceNotFoundException {
+	public void updateById(String id, String name, String description, double totalAmount) throws ResourceNotFoundException {
 		Box boxToUpdate = getById(id);
 		int index = getIndex(boxToUpdate);
 
 		boxToUpdate.setName(name);
 		boxToUpdate.setDescription(description);
+		boxToUpdate.setTotalAmount(totalAmount);
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String updatedAt = LocalDateTime.now().format(formatter);
+		String updatedAt = UiHelpers.fromLocalDateTimeToFormattedDateTime(LocalDateTime.now());
 		boxToUpdate.setUpdatedAt(updatedAt);
 
 		boxes.set(index, boxToUpdate);

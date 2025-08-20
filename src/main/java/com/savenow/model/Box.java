@@ -1,7 +1,7 @@
 package com.savenow.model;
 
+import com.savenow.view.uiUtils.UiHelpers;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -40,7 +40,8 @@ public class Box extends BaseEntity {
 	/**
 	 * Indicates how much money is in the box
 	 */
-	public final double totalAmount;
+	@Setter
+	public double totalAmount;
 
 	/**
 	 * Entity creation date and time
@@ -61,11 +62,9 @@ public class Box extends BaseEntity {
 	 * @return a Box domain entity.
 	 */
 	public static Box createBox(String name, String description, double initialAmount) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String creationDate = LocalDateTime.now().format(formatter);
-
 		return new Box(UUID.randomUUID()
-			.toString(), name, description, initialAmount, creationDate, null);
+			.toString(), name, description, initialAmount,
+			UiHelpers.fromLocalDateTimeToFormattedDateTime(LocalDateTime.now()), null);
 	}
 
 	@Override

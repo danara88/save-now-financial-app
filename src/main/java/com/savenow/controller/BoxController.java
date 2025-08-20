@@ -32,9 +32,9 @@ public class BoxController implements IBoxController {
 	}
 
 	@Override
-	public void updateBox(String id, String name, String description) throws DataValidationException, ResourceNotFoundException {
-		validateData(id, name, description);
-		_boxRepository.updateById(id, name, description);
+	public void updateBox(String id, String name, String description, Double totalAmount) throws DataValidationException, ResourceNotFoundException {
+		validateData(id, name, description, totalAmount);
+		_boxRepository.updateById(id, name, description, totalAmount);
 	}
 
 	@Override
@@ -73,17 +73,21 @@ public class BoxController implements IBoxController {
 	 * @param description description of the box
 	 * @throws DataValidationException checked exception
 	 */
-	private void validateData(String id, String name, String description) throws DataValidationException {
-		if(id.isEmpty()) {
-			throw new DataValidationException("ERROR: Box id is required.");
-		}
+	private void validateData(String id, String name, String description, Double totalAmount) throws DataValidationException {
+			if (id.isEmpty()) {
+				throw new DataValidationException("ERROR: Box id is required.");
+			}
 
-		if(name.isEmpty()) {
-			throw new DataValidationException("ERROR: Box name is required.");
-		}
+			if (name.isEmpty()) {
+				throw new DataValidationException("ERROR: Box name is required.");
+			}
 
-		if(description.isEmpty()) {
-			throw new DataValidationException("ERROR: Box description is required.");
-		}
+			if (description.isEmpty()) {
+				throw new DataValidationException("ERROR: Box description is required.");
+			}
+
+			if (totalAmount == null) {
+				throw new DataValidationException("ERROR: Box total amount is required.");
+			}
 	}
 }

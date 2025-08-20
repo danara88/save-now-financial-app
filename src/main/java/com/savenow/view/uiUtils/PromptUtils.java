@@ -7,8 +7,11 @@ import java.util.Scanner;
  */
 public class PromptUtils {
     /**
-     * Captures user prompt (string)
-     * @return String
+     * Captures user prompt (string).
+     * @param label represents the input label.
+     * @param fieldName represents the name assigned to the input.
+     * @param isRequired represents if the input is required.
+     * @return returns the string setted value from the user.
      */
     public static String inputString(String label, String fieldName, boolean isRequired) {
         String inputValue;
@@ -27,19 +30,22 @@ public class PromptUtils {
 
     /**
      * Captures user prompt (double)
-     * @return Double
+     * @param label represents the input label.
+     * @param fieldName represents the name assigned to the input.
+     * @param isRequired represents if the input is required.
+     * @return returns the double setted value from the user.
      */
-    public static Double inputDouble(String label, String fieldName) {
+    public static Double inputDouble(String label, String fieldName, boolean isRequired) {
         String inputValue;
         Scanner scanner = new Scanner(System.in);
 
         do {
             System.out.println(label + UiConstants.defaultPromptLabel);
             inputValue = scanner.nextLine();
-            if(!isDouble(inputValue)) {
+            if(!isDouble(inputValue) && isRequired) {
                 System.out.println(UiConstants.RED_COLOR + "Input " + fieldName + " is not a valid input." + UiConstants.RESET_COLOR);
             }
-        } while(!isDouble(inputValue));
+        } while(!isDouble(inputValue) && isRequired);
 
         return Double.parseDouble(inputValue);
     }

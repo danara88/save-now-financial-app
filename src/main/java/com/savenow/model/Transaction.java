@@ -1,7 +1,6 @@
 package com.savenow.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -10,8 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import com.savenow.view.uiUtils.UiHelpers;
 import com.savenow.model.common.BaseEntity;
-
 import com.savenow.model.enums.TransactionType;
 
 /**
@@ -32,10 +31,20 @@ public class Transaction extends BaseEntity {
 	private final String boxId;
 
 	/**
+	 * Represents the box name impacted by the transaction
+	 */
+	private final String boxName;
+
+	/**
 	 * Represents the transaction reason details
 	 */
 	@Setter
 	private String reason;
+
+	/**
+	 * Represents the total amount in the transaction
+	 */
+	private final double amount;
 
 	/**
 	 * Represents the transaction type
@@ -60,10 +69,10 @@ public class Transaction extends BaseEntity {
 	 * @param type represents the type of transaction.
 	 * @return a Transaction domain entity.
 	 */
-	public static Transaction createTransaction(String boxId, String reason, TransactionType type) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String creationDate = LocalDateTime.now().format(formatter);
-		return new Transaction(UUID.randomUUID().toString(), boxId, reason, type, creationDate, null);
+	public static Transaction createTransaction(String boxId, String boxName, String reason, double amount, TransactionType type) {
+		return new Transaction(UUID.randomUUID()
+			.toString(), boxId, boxName, reason, amount, type, UiHelpers.fromLocalDateTimeToFormattedDateTime(LocalDateTime.now()),
+			null);
 	}
 
 	@Override

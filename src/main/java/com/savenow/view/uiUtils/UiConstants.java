@@ -48,6 +48,12 @@ public class UiConstants {
                                    Create box
             *******************************************************
             """;
+    public static final String createTransactionTitle = """
+            
+            *******************************************************
+                                   Create transaction
+            *******************************************************
+            """;
     public static final String updateBoxTitle = """
             
             *******************************************************

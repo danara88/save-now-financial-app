@@ -1,9 +1,14 @@
 package com.savenow;
 
-import com.savenow.view.uiUtils.UiHelpers;
+import com.savenow.controller.TransactionController;
+import com.savenow.model.repositories.TransactionRepository;
+import com.savenow.shared.interfaces.transaction.ITransactionController;
+import com.savenow.shared.interfaces.transaction.ITransactionRepository;
+import com.savenow.view.TransactionView;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.savenow.view.uiUtils.UiHelpers;
 import com.savenow.model.repositories.BoxRepository;
 import com.savenow.shared.common.enums.ProgramExecution;
 import com.savenow.shared.common.interfaces.IView;
@@ -51,8 +56,14 @@ public class Main {
         IBoxController boxController = new BoxController(boxRepository);
         IView boxView = new BoxView(boxController);
 
+        // Transaction IoC configuration
+        ITransactionRepository transactionRepository = new TransactionRepository();
+        ITransactionController transactionController = new TransactionController(transactionRepository, boxRepository);
+        IView transactionView = new TransactionView(boxController, transactionController);
+
         viewMapper.put(homeView.toString(), homeView);
         viewMapper.put(boxView.toString(), boxView);
+        viewMapper.put(transactionView.toString(), transactionView);
 
         return viewMapper;
     }
@@ -82,6 +93,7 @@ public class Main {
     private static ProgramExecution executeView(Routes route, Map<String, IView> views) {
         final HomeView homeView = (HomeView) views.get("HomeView");
         final BoxView boxView = (BoxView) views.get("BoxView");
+        final TransactionView transactionView = (TransactionView) views.get("TransactionView");
 
         return switch (route) {
             case HOME_ROUTE -> {
@@ -111,12 +123,12 @@ public class Main {
             }
             case ALL_TRANSACTIONS_ROUTE -> {
                 UiHelpers.clearScreen();
-                System.out.println("All transaction route");
+                transactionView.listTransactionsView();
                 yield ProgramExecution.CONTINUE;
             }
             case CREATE_TRANSACTION_ROUTE -> {
                 UiHelpers.clearScreen();
-                System.out.println("Create transaction route");
+                transactionView.addTransactionView();
                 yield ProgramExecution.CONTINUE;
             }
             case EXIT_ROUTE -> {

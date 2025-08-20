@@ -1,10 +1,10 @@
 [
   {
-    "id": "c69224d4-7949-45e5-88b2-77d88a4efb6a",
+    "id": "fc8943b8-860f-430c-bcfd-b6fe3dc17815",
     "name": "Investments",
-    "description": "Only for investments",
-    "totalAmount": 100.0,
-    "createdAt": "2025-08-15 13:46:22",
-    "updatedAt": "2025-08-15 13:46:51"
+    "description": "This box is only for investments",
+    "totalAmount": 18500.0,
+    "createdAt": "2025-08-19 21:15:11",
+    "updatedAt": "2025-08-19 21:18:11"
   }
 ]

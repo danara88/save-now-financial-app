@@ -1,9 +1,8 @@
 package com.savenow.view;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
+import com.savenow.view.uiUtils.UiHelpers;
 import com.savenow.shared.common.exceptions.ResourceAlreadyExistsException;
 import com.savenow.shared.common.exceptions.ResourceNotFoundException;
 import com.savenow.model.Box;
@@ -30,7 +29,7 @@ public class BoxView implements IView {
 		System.out.println(UiConstants.createBoxTitle);
 		String boxName = PromptUtils.inputString("Enter box name", "name", true);
 		String boxDescription = PromptUtils.inputString("Enter box description", "description", true);
-		double initialBoxAmount = PromptUtils.inputDouble("Enter initial box amount (type 0 to avoid adding initial amount)" , "amount");
+		double initialBoxAmount = PromptUtils.inputDouble("Enter initial box amount (type 0 to avoid adding initial amount)" , "amount", true);
 
 		try {
 			_boxController.addBox(boxName, boxDescription, initialBoxAmount);
@@ -48,7 +47,8 @@ public class BoxView implements IView {
 	 */
 	public void listBoxesView() {
 		System.out.println(UiConstants.getAllBoxesTitle);
-		printBoxesTableUi();
+		List<Box> boxes = _boxController.listBoxes();
+		UiHelpers.printUiTable(boxes, Box.class);
 	}
 
 	/**
@@ -57,7 +57,8 @@ public class BoxView implements IView {
 	public void updateBoxView() {
 		System.out.println(UiConstants.updateBoxTitle);
 		System.out.println();
-		printBoxesTableUi();
+		List<Box> boxes = _boxController.listBoxes();
+		UiHelpers.printUiTable(boxes, Box.class);
 		System.out.println();
 
 		String boxId;
@@ -75,7 +76,7 @@ public class BoxView implements IView {
 		String boxDescription = PromptUtils.inputString("Enter new box description (" + boxDB.getDescription() + "). Please press enter if not changes", "description", false);
 
 		try {
-			_boxController.updateBox(boxId, !boxName.isEmpty() ? boxName : boxDB.getName(), !boxDescription.isEmpty() ? boxDescription : boxDB.getDescription());
+			_boxController.updateBox(boxId, !boxName.isEmpty() ? boxName : boxDB.getName(), !boxDescription.isEmpty() ? boxDescription : boxDB.getDescription(), boxDB.totalAmount);
 			System.out.println(UiConstants.resourceUpdatedSuccess);
 			System.out.println();
 		} catch (DataValidationException | ResourceNotFoundException e) {
@@ -108,7 +109,8 @@ public class BoxView implements IView {
 	public void deleteBoxView() {
 		System.out.println(UiConstants.deleteBoxTitle);
 		System.out.println();
-		printBoxesTableUi();
+		List<Box> boxes = _boxController.listBoxes();
+		UiHelpers.printUiTable(boxes, Box.class);
 		System.out.println();
 		String boxId = PromptUtils.inputString("Enter box id to delete", "id", true);
 
@@ -121,28 +123,6 @@ public class BoxView implements IView {
 		} catch (Exception e) {
 			System.out.println(UiConstants.defaultErrorMessage);
 		}
-	}
-
-	/**
-	 * In charge of printing a table lising boxes.
-	 */
-	private void printBoxesTableUi() {
-		List<Box> boxes = _boxController.listBoxes();
-		Locale locale = Locale.forLanguageTag("en-US");
-		NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
-
-		if (boxes.isEmpty()) {
-			System.out.println("No boxes found.");
-			return;
-		}
-
-		System.out.printf("%-40s %-20s %-20s %-10s%n", "ID", "Box name", "Amount ($)", "Creation Date");
-		System.out.println(
-			"--------------------------------------------------------------------------------------------------------------------------------------");
-		boxes.forEach((box) -> {
-			System.out.printf("%-40s %-20s %-20s %-10s%n",
-				box.getId(), box.getName(), numberFormat.format(box.getTotalAmount()), box.getCreatedAt());
-		});
 	}
 
 	@Override
