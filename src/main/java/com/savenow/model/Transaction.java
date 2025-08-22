@@ -44,7 +44,8 @@ public class Transaction extends BaseEntity {
 	/**
 	 * Represents the total amount in the transaction
 	 */
-	private final double amount;
+	@Setter
+	private double amount;
 
 	/**
 	 * Represents the transaction type

@@ -25,6 +25,9 @@ public enum Routes {
     // Represents the application CREATE TRANSACTION page route
     CREATE_TRANSACTION_ROUTE,
 
+    // Represents the application UPDATE TRANSACTION page route
+    UPDATE_TRANSACTION_ROUTE,
+
     // Represents the application EXIT route
     EXIT_ROUTE
 }

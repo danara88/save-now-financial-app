@@ -42,10 +42,15 @@ public class PromptUtils {
         do {
             System.out.println(label + UiConstants.defaultPromptLabel);
             inputValue = scanner.nextLine();
-            if(!isDouble(inputValue) && isRequired) {
+
+            if(!isRequired) {
+                inputValue = inputValue.isEmpty() ? "0" : inputValue;
+            }
+
+            if(isInvalidDoubleInputValue(inputValue) && isRequired) {
                 System.out.println(UiConstants.RED_COLOR + "Input " + fieldName + " is not a valid input." + UiConstants.RESET_COLOR);
             }
-        } while(!isDouble(inputValue) && isRequired);
+        } while(isInvalidDoubleInputValue(inputValue) && isRequired);
 
         return Double.parseDouble(inputValue);
     }
@@ -61,45 +66,45 @@ public class PromptUtils {
         do {
             System.out.println(label + UiConstants.defaultPromptLabel);
             inputValue = scanner.nextLine();
-            if(!isInteger(inputValue)) {
+            if(isInvalidIntegerInputValue(inputValue)) {
                 System.out.println(UiConstants.RED_COLOR + "Input " + fieldName + " is not a valid input." + UiConstants.RESET_COLOR);
             }
-        } while(!isInteger(inputValue));
+        } while(isInvalidIntegerInputValue(inputValue));
 
         return Integer.parseInt(inputValue);
     }
 
     /**
      * Verifies if a provided value can be converted to a double type.
-     * @param input represents the inserted value by the user
-     * @return true if it can be converted to a double type
+     * @param input represents the inserted value by the user.
+     * @return retruns TRUE if input is invalid or FALSE if input is valid.
      */
-    private static boolean isDouble(String input) {
+    private static boolean isInvalidDoubleInputValue(String input) {
         if (input.isEmpty()) {
-            return false;
+            return true;
         }
         try {
             Double.parseDouble(input);
-            return true;
-        } catch (NumberFormatException e) {
             return false;
+        } catch (NumberFormatException e) {
+            return true;
         }
     }
 
     /**
      * Verifies if a provided value can be converted to an integer type.
      * @param input represents the inserted value by the user
-     * @return true if it can be converted to an integer type
+     * @return retruns TRUE if input is invalid or FALSE if input is valid.
      */
-    private static boolean isInteger(String input) {
+    private static boolean isInvalidIntegerInputValue(String input) {
         if (input.isEmpty()) {
-            return false;
+            return true;
         }
         try {
             Integer.parseInt(input);
-            return true;
-        } catch (NumberFormatException e) {
             return false;
+        } catch (NumberFormatException e) {
+            return true;
         }
     }
 }

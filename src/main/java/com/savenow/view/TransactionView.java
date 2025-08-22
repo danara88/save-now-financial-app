@@ -84,10 +84,10 @@ public class TransactionView implements IView {
 		} while (isInvalidInputAmount(amount, box, transactionType));
 
 		try {
-			_transactionController.addTransaction(box.getId(), box.getName(), reason, amount, transactionType);
+			_transactionController.addTransaction(box.getId(), reason, amount, transactionType);
 			System.out.println(UiConstants.resourceCreatedSuccess);
 			System.out.println();
-		} catch (DataValidationException | ResourceAlreadyExistsException e) {
+		} catch (DataValidationException | ResourceAlreadyExistsException | ResourceNotFoundException e) {
 			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
 		} catch (Exception e) {
 			System.out.println(UiConstants.defaultErrorMessage);
@@ -101,6 +101,71 @@ public class TransactionView implements IView {
 		System.out.println(UiConstants.getAllMovementsTitle);
 		List<Transaction> transactions = _transactionController.listTransactions();
 		UiHelpers.printUiTable(transactions, Transaction.class);
+	}
+
+	/**
+	 * In charge of updating a transaction
+	 */
+	public void updateTransactionView() {
+		System.out.println(UiConstants.updateTransactionTitle);
+		System.out.println();
+		List<Transaction> transactions = _transactionController.listTransactions();
+		UiHelpers.printUiTable(transactions, Transaction.class);
+		System.out.println();
+
+		String transactionId;
+		Transaction transaction;
+		double amount;
+		Box box;
+
+		do {
+			transactionId = PromptUtils.inputString("Enter transaction id to update", "id", true);
+			transaction = tryGetTransactionById(transactionId);
+			if (transaction == null) {
+				System.out.println(
+					UiConstants.RED_COLOR + "Transaction with id " + transactionId + " does not exist. Please enter an existing transaction id." + UiConstants.RESET_COLOR);
+			}
+		} while (transaction == null);
+
+		try {
+			box = _boxController.getBoxById(transaction.getBoxId());
+		} catch (ResourceNotFoundException e) {
+			System.out.println(
+				UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
+			return;
+		}
+
+		String reason = PromptUtils.inputString("Enter transaction reason (" + transaction.getReason() + "). Please press enter if not changes", "reason", false);
+
+		String promptAmountWithdraw = "Update the amount you want to withdraw (" + UiHelpers.fromDoubleToFormattedCurrency(transaction.getAmount()) + "). Please press enter if not changes";
+		String promptAmountDeposit = "Update the amount you want to deposit (" + UiHelpers.fromDoubleToFormattedCurrency(transaction.getAmount()) + "). Please press enter if not changes";
+
+		do {
+			amount = PromptUtils.inputDouble(transaction.getType() == TransactionType.INCOME ? promptAmountDeposit : promptAmountWithdraw, "amount", false);
+			amount = amount == 0 ? transaction.getAmount() : amount;
+
+			if (isInvalidInputAmount(amount, box, transaction.getType())) {
+				if (amount > box.getTotalAmount() && transaction.getType() == TransactionType.WITHDRAW) {
+					System.out.println(
+						UiConstants.RED_COLOR + "Your box '" + box.getName() +"' has a total amount of " + UiHelpers.fromDoubleToFormattedCurrency(box.getTotalAmount()) + ". You cannot withdraw more than this amount." + UiConstants.RESET_COLOR);
+				}
+
+				if (amount < 0) {
+					System.out.println(
+						UiConstants.RED_COLOR + "ERROR: Amount should be greatter than 0." + UiConstants.RESET_COLOR);
+				}
+			}
+		} while (isInvalidInputAmount(amount, box, transaction.getType()));
+
+		try {
+			_transactionController.updateTransaction(box.getId(), transaction.getId(), reason.isEmpty() ? transaction.getReason() : reason, amount);
+			System.out.println(UiConstants.resourceUpdatedSuccess);
+			System.out.println();
+		} catch (DataValidationException | ResourceNotFoundException e) {
+			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
+		} catch (Exception e) {
+			System.out.println(UiConstants.defaultErrorMessage);
+		}
 	}
 
 	/**
@@ -135,7 +200,7 @@ public class TransactionView implements IView {
 	}
 
 	/**
-	 * Method in charge of validation the box id setted by the user.
+	 * Method in charge of validating the box id setted by the user.
 	 * @param boxId represents the Box id.
 	 * @return return true if valdiations failed and false if validations succeed.
 	 */
@@ -145,6 +210,22 @@ public class TransactionView implements IView {
 		}
 		try {
 			return _boxController.getBoxById(boxId);
+		} catch (ResourceNotFoundException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Method in charge of validating the transaction id setted by the user.
+	 * @param transactionId represents the transaction id entered by the user.
+	 * @return returns TRUE if validations failed and FALSE if validations succeed.
+	 */
+	private Transaction tryGetTransactionById(String transactionId) {
+		if (transactionId.isEmpty()) {
+			return null;
+		}
+		try {
+			return _transactionController.getTransactionById(transactionId);
 		} catch (ResourceNotFoundException e) {
 			return null;
 		}

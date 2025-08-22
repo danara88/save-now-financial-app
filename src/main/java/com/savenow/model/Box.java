@@ -41,7 +41,7 @@ public class Box extends BaseEntity {
 	 * Indicates how much money is in the box
 	 */
 	@Setter
-	public double totalAmount;
+	private double totalAmount;
 
 	/**
 	 * Entity creation date and time

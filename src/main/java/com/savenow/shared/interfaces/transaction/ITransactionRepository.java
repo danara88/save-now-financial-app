@@ -18,7 +18,7 @@ public interface ITransactionRepository extends IRepository {
 
 	Transaction getById(String id) throws ResourceNotFoundException;
 
-	void updateById(String id, String reason, TransactionType type) throws ResourceNotFoundException;
+	void update(Transaction transactionToUpdate) throws ResourceNotFoundException;
 
 	void deleteById(String id) throws ResourceNotFoundException;
 }

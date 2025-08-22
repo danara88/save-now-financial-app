@@ -29,7 +29,7 @@ public class BoxView implements IView {
 		System.out.println(UiConstants.createBoxTitle);
 		String boxName = PromptUtils.inputString("Enter box name", "name", true);
 		String boxDescription = PromptUtils.inputString("Enter box description", "description", true);
-		double initialBoxAmount = PromptUtils.inputDouble("Enter initial box amount (type 0 to avoid adding initial amount)" , "amount", true);
+		double initialBoxAmount = PromptUtils.inputDouble("Enter initial box amount. Please press enter if not initial amount needed" , "amount", false);
 
 		try {
 			_boxController.addBox(boxName, boxDescription, initialBoxAmount);
@@ -71,15 +71,14 @@ public class BoxView implements IView {
 			}
 		} while (!boxExists(boxId));
 
-		Box boxDB = _boxController.getBoxById(boxId);
-		String boxName = PromptUtils.inputString("Enter new box name (" + boxDB.getName() + "). Please press enter if not changes", "name", false);
-		String boxDescription = PromptUtils.inputString("Enter new box description (" + boxDB.getDescription() + "). Please press enter if not changes", "description", false);
-
 		try {
-			_boxController.updateBox(boxId, !boxName.isEmpty() ? boxName : boxDB.getName(), !boxDescription.isEmpty() ? boxDescription : boxDB.getDescription(), boxDB.totalAmount);
+			Box boxDB = _boxController.getBoxById(boxId);
+			String boxName = PromptUtils.inputString("Enter new box name (" + boxDB.getName() + "). Please press enter if not changes", "name", false);
+			String boxDescription = PromptUtils.inputString("Enter new box description (" + boxDB.getDescription() + "). Please press enter if not changes", "description", false);
+			_boxController.updateBox(boxId, !boxName.isEmpty() ? boxName : boxDB.getName(), !boxDescription.isEmpty() ? boxDescription : boxDB.getDescription(), boxDB.getTotalAmount());
 			System.out.println(UiConstants.resourceUpdatedSuccess);
 			System.out.println();
-		} catch (DataValidationException | ResourceNotFoundException e) {
+		} catch (DataValidationException | ResourceNotFoundException  e) {
 			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
 		} catch (Exception e) {
 			System.out.println(UiConstants.defaultErrorMessage);

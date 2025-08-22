@@ -1,13 +1,13 @@
 package com.savenow;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.savenow.controller.TransactionController;
 import com.savenow.model.repositories.TransactionRepository;
 import com.savenow.shared.interfaces.transaction.ITransactionController;
 import com.savenow.shared.interfaces.transaction.ITransactionRepository;
 import com.savenow.view.TransactionView;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.savenow.view.uiUtils.UiHelpers;
 import com.savenow.model.repositories.BoxRepository;
 import com.savenow.shared.common.enums.ProgramExecution;
@@ -81,7 +81,8 @@ public class Main {
         routesMapper.put(4, Routes.DELETE_BOX_ROUTE);
         routesMapper.put(5, Routes.ALL_TRANSACTIONS_ROUTE);
         routesMapper.put(6, Routes.CREATE_TRANSACTION_ROUTE);
-        routesMapper.put(7, Routes.EXIT_ROUTE);
+        routesMapper.put(7, Routes.UPDATE_TRANSACTION_ROUTE);
+        routesMapper.put(8, Routes.EXIT_ROUTE);
         return routesMapper;
     }
 
@@ -129,6 +130,11 @@ public class Main {
             case CREATE_TRANSACTION_ROUTE -> {
                 UiHelpers.clearScreen();
                 transactionView.addTransactionView();
+                yield ProgramExecution.CONTINUE;
+            }
+            case UPDATE_TRANSACTION_ROUTE -> {
+                UiHelpers.clearScreen();
+                transactionView.updateTransactionView();
                 yield ProgramExecution.CONTINUE;
             }
             case EXIT_ROUTE -> {

@@ -1,12 +1,11 @@
 package com.savenow.model.repositories;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.savenow.view.uiUtils.UiHelpers;
 import com.savenow.persistence.TransactionPersistence;
 import com.savenow.model.Transaction;
-import com.savenow.model.enums.TransactionType;
 import com.savenow.shared.common.exceptions.ResourceAlreadyExistsException;
 import com.savenow.shared.common.exceptions.ResourceNotFoundException;
 import com.savenow.shared.interfaces.transaction.ITransactionRepository;
@@ -61,24 +60,20 @@ public class TransactionRepository implements ITransactionRepository {
 
 	/**
 	 * Method in charge of updating a transaction by id.
-	 * @param id represents the transaction id.
-	 * @param reason represents the new transaction reason.
-	 * @param type represents the new transaction type.
+	 * @param transactionToUpdate represents the transaction to be updated.
 	 * @throws ResourceNotFoundException represents a checked exception when a transaction was not found.
 	 */
 	@Override
-	public void updateById(String id, String reason, TransactionType type) throws ResourceNotFoundException {
-		Transaction resourceToUpdate = getById(id);
-		int index = getIndex(resourceToUpdate);
+	public void update(Transaction transactionToUpdate) throws ResourceNotFoundException {
+		int index = getIndexById(transactionToUpdate.getId());
 
-		resourceToUpdate.setReason(reason);
-		resourceToUpdate.setType(type);
+		if (index < 0) {
+			throw new ResourceNotFoundException("ERROR: Transaction with id " + transactionToUpdate.getId() + " not found.");
+		}
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String updatedAt = LocalDateTime.now().format(formatter);
-		resourceToUpdate.setUpdatedAt(updatedAt);
+		transactionToUpdate.setUpdatedAt(UiHelpers.fromLocalDateTimeToFormattedDateTime(LocalDateTime.now()));
 
-		transactions.set(index, resourceToUpdate);
+		transactions.set(index, transactionToUpdate);
 		TransactionPersistence.saveTransactions(transactions);
 	}
 
@@ -96,10 +91,11 @@ public class TransactionRepository implements ITransactionRepository {
 
 	/**
 	 * In charge of getting the index number of a transaction.
-	 * @param transaction represents the transaction to extract the index.
+	 * @param id represents the transaction id.
 	 * @return the index of a transaction within an array of transactions.
 	 */
-	private int getIndex(Transaction transaction) {
+	private int getIndexById(String id) throws ResourceNotFoundException {
+		Transaction transaction = getById(id);
 		return transactions.indexOf(transaction);
 	}
 }

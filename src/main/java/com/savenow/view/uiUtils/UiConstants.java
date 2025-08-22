@@ -18,14 +18,15 @@ public class UiConstants {
             Welcome to SaveNow - Your Personal Finance Organizer!
             --------------------------------------------------------
             Select an option:
-            [0] Home               - Go to home screen.
-            [1] See all boxes      - Visualize all your boxes.
-            [2] Create box         - Create new box.
-            [3] Update box         - Update box details.
-            [4] Delete box         - Remove box.
-            [5] See all movements  - Consult your recent movements.
-            [6] Create movement    - Register new movement
-            [7] Exit               - Exit the program.
+            [0] Home                    - Go to home screen.
+            [1] All boxes               - Visualize all your boxes.
+            [2] Create box              - Create new box.
+            [3] Update box              - Update box details.
+            [4] Delete box              - Remove box.
+            [5] All transactions        - Consult your recent transactions.
+            [6] Create transaction      - Register new transaction.
+            [7] Update transaction      - Update an existin transaction.
+            [8] Exit                    - Exit the program.
             Start managing your finances efficiently!
         """;
 
@@ -52,6 +53,12 @@ public class UiConstants {
             
             *******************************************************
                                    Create transaction
+            *******************************************************
+            """;
+    public static final String updateTransactionTitle = """
+            
+            *******************************************************
+                                   Update transaction
             *******************************************************
             """;
     public static final String updateBoxTitle = """
