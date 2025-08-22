@@ -1,9 +1,9 @@
 package com.savenow.model.repositories;
 
-import com.savenow.view.uiUtils.UiHelpers;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.savenow.view.uiUtils.UiHelpers;
 import com.savenow.shared.common.exceptions.ResourceAlreadyExistsException;
 import com.savenow.shared.common.exceptions.ResourceNotFoundException;
 import com.savenow.model.Box;
@@ -60,22 +60,18 @@ public class BoxRepository implements IBoxRepository {
 
 	/**
 	 * Method in charge of updating a box.
-	 * @param id represents the box id to update.
-	 * @param name reprersents the new box name.
-	 * @param description represents the new box description.
+	 * @param boxToUpdate reprersents the new box name.
 	 * @throws ResourceNotFoundException represents a checked exception when a Box was not found.
 	 */
 	@Override
-	public void updateById(String id, String name, String description, double totalAmount) throws ResourceNotFoundException {
-		Box boxToUpdate = getById(id);
-		int index = getIndex(boxToUpdate);
+	public void update(Box boxToUpdate) throws ResourceNotFoundException {
+		int index = getIndexById(boxToUpdate.getId());
 
-		boxToUpdate.setName(name);
-		boxToUpdate.setDescription(description);
-		boxToUpdate.setTotalAmount(totalAmount);
+		if (index < 0) {
+			throw new ResourceNotFoundException("ERROR: Box with id " + boxToUpdate.getId() + " not found.");
+		}
 
-		String updatedAt = UiHelpers.fromLocalDateTimeToFormattedDateTime(LocalDateTime.now());
-		boxToUpdate.setUpdatedAt(updatedAt);
+		boxToUpdate.setUpdatedAt(UiHelpers.fromLocalDateTimeToFormattedDateTime(LocalDateTime.now()));
 
 		boxes.set(index, boxToUpdate);
 		BoxPersistence.saveBoxes(boxes);
@@ -95,10 +91,11 @@ public class BoxRepository implements IBoxRepository {
 
 	/**
 	 * In charge of getting the index number of a box
-	 * @param box represents the box to extract the index.
+	 * @param id represents the box id to extract the index from.
 	 * @return the index of a box within an array of boxes
 	 */
-	private int getIndex(Box box) {
+	private int getIndexById(String id) throws ResourceNotFoundException {
+		Box box = getById(id);
 		return boxes.indexOf(box);
 	}
 }

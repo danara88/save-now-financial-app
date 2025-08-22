@@ -17,7 +17,7 @@ public interface IBoxRepository extends IRepository {
 
 	Box getById(String id) throws ResourceNotFoundException;
 
-	void updateById(String id, String name, String description, double totalAmount) throws ResourceNotFoundException;
+	void update(Box boxToUpdate) throws ResourceNotFoundException;
 
 	void deleteById(String id) throws ResourceNotFoundException;
 }

@@ -34,7 +34,11 @@ public class BoxController implements IBoxController {
 	@Override
 	public void updateBox(String id, String name, String description, Double totalAmount) throws DataValidationException, ResourceNotFoundException {
 		validateData(id, name, description, totalAmount);
-		_boxRepository.updateById(id, name, description, totalAmount);
+		Box existingBox = _boxRepository.getById(id);
+		existingBox.setName(name);
+		existingBox.setDescription(description);
+		existingBox.setTotalAmount(totalAmount);
+		_boxRepository.update(existingBox);
 	}
 
 	@Override

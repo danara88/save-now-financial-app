@@ -38,8 +38,9 @@ public class TransactionController implements ITransactionController {
 		if (transaction.getType() == TransactionType.WITHDRAW) {
 			boxTotalAmount -= amount;
 		}
+		box.setTotalAmount(boxTotalAmount);
 
-		_boxRepository.updateById(box.getId(), box.getName(), box.getDescription(), boxTotalAmount);
+		_boxRepository.update(box);
 		_transactionRepository.create(transaction);
 	}
 
@@ -77,7 +78,7 @@ public class TransactionController implements ITransactionController {
 		exisitngTransaction.setReason(reason);
 		exisitngTransaction.setAmount(amount);
 
-		_boxRepository.updateById(existingBox.getId(), existingBox.getName(), existingBox.getDescription(), existingBox.getTotalAmount());
+		_boxRepository.update(existingBox);
 		_transactionRepository.update(exisitngTransaction);
 	}
 
@@ -99,7 +100,9 @@ public class TransactionController implements ITransactionController {
 			boxTotalAmount += transactionToDelete.getAmount();
 		}
 
-		_boxRepository.updateById(box.getId(), box.getName(), box.getDescription(), boxTotalAmount);
+		box.setTotalAmount(boxTotalAmount);
+
+		_boxRepository.update(box);
 		_transactionRepository.deleteById(id);
 	}
 
