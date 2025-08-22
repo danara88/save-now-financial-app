@@ -98,7 +98,7 @@ public class TransactionView implements IView {
 	 * In charge of displaying the view for transaction listing.
 	 */
 	public void listTransactionsView() {
-		System.out.println(UiConstants.getAllMovementsTitle);
+		System.out.println(UiConstants.getAllTransactionsTitle);
 		List<Transaction> transactions = _transactionController.listTransactions();
 		UiHelpers.printUiTable(transactions, Transaction.class);
 	}
