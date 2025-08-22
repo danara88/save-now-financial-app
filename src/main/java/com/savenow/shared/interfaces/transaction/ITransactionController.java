@@ -21,4 +21,6 @@ public interface ITransactionController extends IController {
 
 	void updateTransaction(String boxId, String transactionId, String reason, Double amount)
 		throws DataValidationException, ResourceNotFoundException;
+
+	void deleteTransaction(String id) throws ResourceNotFoundException, DataValidationException;
 }

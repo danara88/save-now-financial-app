@@ -25,9 +25,9 @@ public class UiConstants {
             [4] Delete box              - Remove box.
             [5] All transactions        - Consult your recent transactions.
             [6] Create transaction      - Register new transaction.
-            [7] Update transaction      - Update an existin transaction.
-            [8] Exit                    - Exit the program.
-            Start managing your finances efficiently!
+            [7] Update transaction      - Update an existing transaction.
+            [8] Delete transaction      - Delete an existing transaction.
+            [9] Exit                    - Exit the program.
         """;
 
     public static final String RED_COLOR = "\u001B[31m";
@@ -59,6 +59,12 @@ public class UiConstants {
             
             *******************************************************
                                    Update transaction
+            *******************************************************
+            """;
+    public static final String deleteTransactionTitle = """
+            
+            *******************************************************
+                                   Delete transaction
             *******************************************************
             """;
     public static final String updateBoxTitle = """

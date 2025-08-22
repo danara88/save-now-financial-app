@@ -81,6 +81,28 @@ public class TransactionController implements ITransactionController {
 		_transactionRepository.update(exisitngTransaction);
 	}
 
+	@Override
+	public void deleteTransaction(String id) throws ResourceNotFoundException, DataValidationException {
+		if (id.isEmpty()) {
+			throw new DataValidationException("ERROR: Transaction id is required.");
+		}
+
+		Transaction transactionToDelete = _transactionRepository.getById(id);
+		Box box = _boxRepository.getById(transactionToDelete.getBoxId());
+		double boxTotalAmount = box.getTotalAmount();
+
+		if (transactionToDelete.getType() == TransactionType.INCOME) {
+			boxTotalAmount -= transactionToDelete.getAmount();
+		}
+
+		if (transactionToDelete.getType() == TransactionType.WITHDRAW) {
+			boxTotalAmount += transactionToDelete.getAmount();
+		}
+
+		_boxRepository.updateById(box.getId(), box.getName(), box.getDescription(), boxTotalAmount);
+		_transactionRepository.deleteById(id);
+	}
+
 	/**
 	 * In charge of validating the input data by the user
 	 * @param boxId represents the box id.

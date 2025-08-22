@@ -169,6 +169,39 @@ public class TransactionView implements IView {
 	}
 
 	/**
+	 * In charge of displaying the view for deleting a transaction.
+	 */
+	public void deleteTransactionView() {
+		System.out.println(UiConstants.deleteTransactionTitle);
+		System.out.println();
+		List<Transaction> transactions = _transactionController.listTransactions();
+		UiHelpers.printUiTable(transactions, Transaction.class);
+		System.out.println();
+
+		String transactionId;
+		Transaction transaction;
+
+		do {
+			transactionId = PromptUtils.inputString("Enter transaction id to delete", "id", true);
+			transaction = tryGetTransactionById(transactionId);
+			if (transaction == null) {
+				System.out.println(
+					UiConstants.RED_COLOR + "Transaction with id " + transactionId + " does not exist. Please enter an existing transaction id." + UiConstants.RESET_COLOR);
+			}
+		} while (transaction == null);
+
+		try {
+			_transactionController.deleteTransaction(transactionId);
+			System.out.println(UiConstants.resourceDeletedSuccess);
+			System.out.println();
+		} catch (ResourceNotFoundException | DataValidationException e) {
+			System.out.println(UiConstants.RED_COLOR + e.getMessage() + UiConstants.RESET_COLOR);
+		} catch (Exception e) {
+			System.out.println(UiConstants.defaultErrorMessage);
+		}
+	}
+
+	/**
 	 * Method in charge of validating the input set by the user for amount.
 	 * @param amount represents the amount setted by the user.
 	 * @param box represents the box to get the total amount.

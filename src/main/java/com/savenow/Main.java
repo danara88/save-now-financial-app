@@ -82,7 +82,8 @@ public class Main {
         routesMapper.put(5, Routes.ALL_TRANSACTIONS_ROUTE);
         routesMapper.put(6, Routes.CREATE_TRANSACTION_ROUTE);
         routesMapper.put(7, Routes.UPDATE_TRANSACTION_ROUTE);
-        routesMapper.put(8, Routes.EXIT_ROUTE);
+        routesMapper.put(8, Routes.DELETE_TRANSACTION_ROUTE);
+        routesMapper.put(9, Routes.EXIT_ROUTE);
         return routesMapper;
     }
 
@@ -135,6 +136,11 @@ public class Main {
             case UPDATE_TRANSACTION_ROUTE -> {
                 UiHelpers.clearScreen();
                 transactionView.updateTransactionView();
+                yield ProgramExecution.CONTINUE;
+            }
+            case DELETE_TRANSACTION_ROUTE -> {
+                UiHelpers.clearScreen();
+                transactionView.deleteTransactionView();
                 yield ProgramExecution.CONTINUE;
             }
             case EXIT_ROUTE -> {

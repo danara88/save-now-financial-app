@@ -28,6 +28,9 @@ public enum Routes {
     // Represents the application UPDATE TRANSACTION page route
     UPDATE_TRANSACTION_ROUTE,
 
+    // Represents the application DELETE TRANSACTION page route
+    DELETE_TRANSACTION_ROUTE,
+
     // Represents the application EXIT route
     EXIT_ROUTE
 }
