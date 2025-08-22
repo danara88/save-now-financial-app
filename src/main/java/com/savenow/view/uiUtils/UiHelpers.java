@@ -64,7 +64,7 @@ public class UiHelpers {
 			boxes.forEach((Box box) -> {
 				System.out.printf("%-40s %-20s %-20s %-20s %-20s%n",
 					box.getId(), box.getName(), fromDoubleToFormattedCurrency(box.getTotalAmount()), box.getCreatedAt(),
-					box.getUpdatedAt());
+					box.getUpdatedAt() == null ? "-" : box.getUpdatedAt());
 			});
 		}
 
@@ -82,7 +82,7 @@ public class UiHelpers {
 				System.out.printf("%-40s %-20s %-20s %-40s %-20s %-20s %-20s%n",
 					transaction.getId(), transaction.getType(), transaction.getBoxName(), transaction.getReason(),
 					UiHelpers.fromDoubleToFormattedCurrency(transaction.getAmount()), transaction.getCreatedAt(),
-					transaction.getUpdatedAt());
+					transaction.getUpdatedAt() == null ? "-" : transaction.getUpdatedAt());
 			});
 		}
 
