@@ -25,4 +25,30 @@ track your expenses 📉 and income 📈, and **categorize every transaction eff
       - identify spending patterns 👀,
       - plan your budget more effectively 💵, 
       - make informed financial decisions 📊.
-      ![img_3.png](img_3.png)
+      
+   ![img_3.png](img_3.png)
+
+## Technical Details ✍🏼
+
+---
+> Course reference: [DevTalles Java Fundamentals Course](https://www.udemy.com/course/devtalles-java/)
+
+Before starting explaining the technical details, we must point we have learned many technics and java technics form the training above. ⬆
+
+### Arquitectural Pattern MVC
+> [Model-View-Controller](https://www.geeksforgeeks.org/software-engineering/mvc-framework-introduction/)
+
+SaveNow financial app was based on the [MVC architectural](https://www.geeksforgeeks.org/software-engineering/mvc-framework-introduction/) pattern adapted to our
+needs. It is commonly used in web development, but in our case we adapated it for a **desktop terminal application**.
+
+Each component of the MVC was crucial to scale and make the code readable for everyone by using the [SRP (Single Responsability Principle)](https://stackify.com/solid-design-principles/).
+
+The following diagram explains in an ilutrative way how MVC powered our solution:
+
+![architectural-diagram.png](architectural-diagram.png)
+
+### Persistance Solution
+
+
+### Error Handling
+
