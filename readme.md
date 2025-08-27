@@ -21,7 +21,7 @@ track your expenses 📉 and income 📈, and **categorize every transaction eff
 
 Check out this beautiful user interface !
 
-![img.png](img.png)
+![img.png](assets/img.png)
 
 ## Main Features 🔥
 
@@ -30,7 +30,7 @@ Check out this beautiful user interface !
    1. ➡️ Organize your money effortlessly by **creating separate boxes for different purposes**.
    2. ➡️ Whether it's saving for a trip, bills, or daily expenses, you can easily **allocate funds to each box**.
    3. ➡️ This feature helps you stay disciplined and ensures that **your money is always tracked** according to your priorities.
-      ![img_1.png](img_1.png)
+      ![img_1.png](assets/img_1.png)
       <br/>
       <br/>
 2. **Transaction Tracker**
@@ -41,7 +41,7 @@ Check out this beautiful user interface !
       - plan your budget more effectively 💵, 
       - make informed financial decisions 📊.
       
-   ![img_3.png](img_3.png)
+   ![img_3.png](assets/img_3.png)
 
 ## Technical Details ✍🏼
 
@@ -60,7 +60,7 @@ Each component of the MVC was crucial to scale and make the code readable for ev
 
 The following diagram explains in an ilustrative way how MVC powered our solution:
 
-![architectural-diagram.png](architectural-diagram.png)
+![architectural-diagram.png](assets/architectural-diagram.png)
 
 ### Persistence Solution
 
@@ -72,7 +72,7 @@ The library help us serialize and deserialize Java objects and play around with 
 
 This diagram explains in a simplifyed way how our persitence solution works:
 
-![persistence-diagram.png](persistence-diagram.png)
+![persistence-diagram.png](assets/persistence-diagram.png)
 ### Error Handling
 
 Well use of Checked and Unchecked Exceptions were our partner at the moment of controlling application
