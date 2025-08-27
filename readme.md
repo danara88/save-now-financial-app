@@ -43,12 +43,28 @@ needs. It is commonly used in web development, but in our case we adapated it fo
 
 Each component of the MVC was crucial to scale and make the code readable for everyone by using the [SRP (Single Responsability Principle)](https://stackify.com/solid-design-principles/).
 
-The following diagram explains in an ilutrative way how MVC powered our solution:
+The following diagram explains in an ilustrative way how MVC powered our solution:
 
 ![architectural-diagram.png](architectural-diagram.png)
 
-### Persistance Solution
+### Persistence Solution
 
+We could implement SQL or NO-SQL databases, there is many persistence solutions outhere, but we found attracive
+the idea of persisting our data in JSON files. Thanks to the following library we made this possible:
+> [Google Java Library JSON Manipulation (Gson)](https://mvnrepository.com/artifact/com.google.code.gson/gson)
 
+The library help us serialize and deserialize Java objects and play around with JSON files! 🙂
+
+This diagram explains in a simplifyed way how our persitence solution works:
+
+![persistence-diagram.png](persistence-diagram.png)
 ### Error Handling
+
+Well use of Checked and Unchecked Exceptions were our partner at the moment of controlling application
+exceptions. Part of our code base is using Checked Exceptions to enforce method exception definition
+and to avoid unhandled exceptions.
+
+Our view layer in charge of envolve in a try catch the pieces of code that are propensed to get any kind of
+exception. All Exceptions implemented in Model and Controller layer go up until it reached the View layer
+that eventually will print the error.
 
