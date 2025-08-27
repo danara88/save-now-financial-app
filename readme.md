@@ -1,6 +1,20 @@
 # Save Now Financial App 💵
 
 ---
+
+## Table Of Contents 📖
+
+---
+- [Context](#context-)
+- [Main Features](#main-features-)
+- [Technical Details](#technical-details-)
+- [Arquitectural Pattern](#arquitectural-pattern-mvc)
+- [Persistence Solution](#persistence-solution)
+
+
+## Context 🌎
+
+---
 Save Now is a finance management app designed to make **handling your money simple and stress-free** 💶. 
 With an intuitive and **easy-to-use interface**, you can organize your funds into customizable boxes, 
 track your expenses 📉 and income 📈, and **categorize every transaction effortlessly** 🤘🏻.
