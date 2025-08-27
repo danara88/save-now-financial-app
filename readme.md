@@ -10,7 +10,7 @@
 - [Technical Details](#technical-details-)
 - [Arquitectural Pattern](#arquitectural-pattern-mvc)
 - [Persistence Solution](#persistence-solution)
-
+- [Error Handling](#error-handling)
 
 ## Context 🌎
 
@@ -19,6 +19,7 @@ Save Now is a finance management app designed to make **handling your money simp
 With an intuitive and **easy-to-use interface**, you can organize your funds into customizable boxes, 
 track your expenses 📉 and income 📈, and **categorize every transaction effortlessly** 🤘🏻.
 
+Check out this beautiful user interface !
 
 ![img.png](img.png)
 
