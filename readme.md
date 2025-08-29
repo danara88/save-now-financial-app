@@ -48,7 +48,7 @@ Check out this beautiful user interface !
 ---
 > Course reference: [DevTalles Java Fundamentals Course](https://www.udemy.com/course/devtalles-java/)
 
-Before starting explaining the technical details, we must point we have learned many technics and java technics form the training above. ⬆
+Before diving into the technical details, we should first point out that we have learned many techniques, including several Java techniques, from the training above.
 
 ### Arquitectural Pattern MVC
 > [Model-View-Controller](https://www.geeksforgeeks.org/software-engineering/mvc-framework-introduction/)
@@ -56,30 +56,32 @@ Before starting explaining the technical details, we must point we have learned 
 SaveNow financial app was based on the [MVC architectural](https://www.geeksforgeeks.org/software-engineering/mvc-framework-introduction/) pattern adapted to our
 needs. It is commonly used in web development, but in our case we adapated it for a **desktop terminal application**.
 
-Each component of the MVC was crucial to scale and make the code readable for everyone by using the [SRP (Single Responsability Principle)](https://stackify.com/solid-design-principles/).
+Each component of the MVC played a crucial role in scaling the application and making the code more readable for everyone by using the [SRP (Single Responsability Principle)](https://stackify.com/solid-design-principles/).
 
-The following diagram explains in an ilustrative way how MVC powered our solution:
+The following diagram illustrates how MVC powered our solution in a clear and visual way:
 
 ![architectural-diagram.png](assets/architectural-diagram.png)
 
 ### Persistence Solution
 
-We could implement SQL or NO-SQL databases, there is many persistence solutions outhere, but we found attracive
-the idea of persisting our data in JSON files. Thanks to the following library we made this possible:
+We could have implemented SQL or NoSQL databases, as there are many persistence solutions out there. 
+However, we found the idea of storing our data in JSON files particularly attractive. 
+This was made possible thanks to the following library:
 > [Google Java Library JSON Manipulation (Gson)](https://mvnrepository.com/artifact/com.google.code.gson/gson)
 
-The library help us serialize and deserialize Java objects and play around with JSON files! 🙂
+The library helped us serialize and deserialize Java objects, allowing us to easily work with JSON files! 🙂
 
-This diagram explains in a simplifyed way how our persitence solution works:
+This diagram explains in a simplified way how our persistence solution works:
 
 ![persistence-diagram.png](assets/persistence-diagram.png)
 ### Error Handling
 
-Well use of Checked and Unchecked Exceptions were our partner at the moment of controlling application
-exceptions. Part of our code base is using Checked Exceptions to enforce method exception definition
-and to avoid unhandled exceptions.
+The proper use of [checked and unchecked exceptions](https://www.geeksforgeeks.org/java/java-checked-vs-unchecked-exceptions/) was key in handling application errors. Part of our codebase uses checked exceptions to 
+enforce method-level exception definitions and prevent unhandled errors.
 
-Our view layer in charge of envolve in a try catch the pieces of code that are propensed to get any kind of
-exception. All Exceptions implemented in Model and Controller layer go up until it reached the View layer
-that eventually will print the error.
+Our view layer is responsible for wrapping code that may throw exceptions in try-catch blocks. All exceptions thrown in the Model and Controller 
+layers propagate up to the View layer, which ultimately handles and displays the errors.
 
+The following diagram provides a big-picture view of how we handled exceptions:
+
+![diagram-exceptions.png](assets/diagram-exceptions.png)
